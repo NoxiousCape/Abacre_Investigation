@@ -143,25 +143,29 @@ Este es el paso más revelador del proyecto. Cada herramienta tuvo un problema d
 
 ### Problema 0: Abacre no corre en Windows 7
 
-El proceso inició en **Windows 7 de 32 bits**. Al intentar ejecutar `aav.exe`, el **Asistente de compatibilidad de programas** bloqueó la ejecución:
+Se intentó usar x32dbg en Windows 7. Primero falló por DLL faltante:
+
+> ![Error DLL api-ms-win-crt-runtime en Windows 7](Screenshots/debug/01_error_api_ms_win_crt_runtime_falta_x32dbg.png)
+
+Se instaló **VC++ Redistributable x86** → la DLL se resolvió.
+
+Luego al ejecutar x32dgb con los steps indicados, el **Asistente de compatibilidad de programas** bloqueó la ejecución indicando que el proceso aav.exe no era compatible con el sistema operativo actual (Se estaba ejecutando **Windows 7 de 32 bits**).
 
 > *"Abacre Antivirus no es compatible con esta versión de Windows."*
 
 > ![Abacre bloqueado en Windows 7](Screenshots/debug/03_abacre_no_compatible_con_windows7.png)
 
-**Conclusión:** Abacre solo funciona en **Windows XP**. Se creó una VM con XP Professional SP3.
+**Conclusión:** Abacre solo funciona en **Windows XP** o versiones anteriores. Se creó una VM con XP Professional SP3.
 
 ### Intento 1: x32dbg (x64dbg 2026)
 
-Se intentó usar x32dbg en Windows 7. Primero falló por DLL faltante:
+Al intentar ejecutar x32dbg en la VM de XP:
 
-> ![Error DLL api-ms-win-crt-runtime en Windows 7](Screenshots/debug/01_error_api_ms_win_crt_runtime_falta_x32dbg.png)
+> `C:\tools\x64dbg\release\x32\x32dbg.exe no es una aplicación Win32 válida`
 
-Se instaló **VC++ Redistributable x86** → la DLL se resolvió. Pero x64dbg 2026 es de **64 bits** — al intentarlo en la VM de XP 32-bit:
+> ![x32dbg no compatible con XP](Screenshots/debug/04_bloqueo_compatibilidad_abacre_antivirus.png)
 
-> ![x32dbg no válido en XP 32-bit](Screenshots/debug/04_bloqueo_compatibilidad_abacre_antivirus.png)
-
-**Conclusión:** x64dbg 2026 requiere Windows 7+ (64-bit). No sirve para XP.
+**Conclusión:** x64dbg 2026 no es compatible con Windows XP.
 
 ### Intento 2: OllyDbg 1.10
 
