@@ -141,16 +141,27 @@ La carpeta `C:\Abacre` contiene el instalador y los archivos extraídos.
 
 Este es el paso más revelador del proyecto. Cada herramienta tuvo un problema diferente.
 
+### Problema 0: Abacre no corre en Windows 7
+
+El proceso inició en **Windows 7 de 32 bits**. Al intentar ejecutar `aav.exe`, el **Asistente de compatibilidad de programas** bloqueó la ejecución:
+
+> *"Abacre Antivirus no es compatible con esta versión de Windows."*
+
+> ![Abacre bloqueado en Windows 7](Screenshots/debug/03_abacre_no_compatible_con_windows7.png)
+
+**Conclusión:** Abacre solo funciona en **Windows XP**. Se creó una VM con XP Professional SP3.
+
 ### Intento 1: x32dbg (x64dbg 2026)
 
-**Resultado:** Error — `x32dbg.exe no es una aplicación Win32 válida`.
+Se intentó usar x32dbg en Windows 7. Primero falló por DLL faltante:
 
-x64dbg 2026 necesita `api-ms-win-crt-runtime-l1-1-0.dll` que no existe en XP.
+> ![Error DLL api-ms-win-crt-runtime en Windows 7](Screenshots/debug/01_error_api_ms_win_crt_runtime_falta_x32dbg.png)
 
-> ![Error API MS Win CRT](Screenshots/debug/01_error_api_ms_win_crt_runtime_falta_x32dbg.png)
-> ![x32dbg no válida en XP](Screenshots/debug/03_error_x32dbg_no_es_aplicacion_win32_valida.png)
+Se instaló **VC++ Redistributable x86** → la DLL se resolvió. Pero x64dbg 2026 es de **64 bits** — al intentarlo en la VM de XP 32-bit:
 
-**Solución intentada:** Se instaló VC++ Redistributable x86 — pero x64dbg 2026 simplemente no soporta XP.
+> ![x32dbg no válido en XP 32-bit](Screenshots/debug/04_bloqueo_compatibilidad_abacre_antivirus.png)
+
+**Conclusión:** x64dbg 2026 requiere Windows 7+ (64-bit). No sirve para XP.
 
 ### Intento 2: OllyDbg 1.10
 
@@ -317,7 +328,7 @@ Todas las capturas del proceso de debugging están en `Screenshots/debug/`, nomb
 ### x32dbg — No compatible con XP
 - `01_error_api_ms_win_crt_runtime_falta_x32dbg.png` — Falta DLL runtime
 - `02_x32dbg_breakpoint_ntdll_NtQueryVirtualMemory.png` — Breakpoint sistema ( Win10)
-- `03_error_x32dbg_no_es_aplicacion_win32_valida.png` — No es Win32 válida en XP
+- `03_abacre_no_compatible_con_windows7.png` — Abacre bloqueado en Windows 7
 
 ### OllyDbg — Detection del packer
 - `04_bloqueo_compatibilidad_abacre_antivirus.png` — Bloqueo por compatibilidad
