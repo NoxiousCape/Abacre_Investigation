@@ -16,7 +16,7 @@ tools\innoextract.exe --extract --output-dir extracted original\setup.exe
 ```
 > Ver `analysis/hashes.sha256` y `Screenshots/1.png`
 
-### 2. VM (documentado por el investigador)
+### 2. VM 
 Se utiliza **VMWare Workstation Pro 26H1** con **XP Professional SP3 sin internet** (VirtualBox/Hyper-V descartados). La carpeta se comparte vía VMWare Tools y el contenido se copia a `C:\Abacre\`.
 
 ![VM](Screenshots/2.png) ![Compartida](Screenshots/3.png) ![C Abacre](Screenshots/4.png)
