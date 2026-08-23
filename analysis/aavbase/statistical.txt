@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Documents\Visual Studio 2022\Projects\Abacre_Inv\scripts\03_statistical_crypto.py", line 3, in <module>
+    b = p.read_bytes()[22:]
+        ^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Usuario\\Documents\\Visual Studio 2022\\Projects\\Abacre_Inv\\_extracted\\app\\aavbase.dat'

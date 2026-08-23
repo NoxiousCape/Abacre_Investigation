@@ -1,0 +1,12 @@
+*.exe
+*.dll
+*.chm
+!tools/innoextract.exe
+__pycache__/
+*.pyc
+.venv/
+*.log
+.DS_Store
+Thumbs.db
+extracted/app/*.exe
+extracted/app/*.chm
