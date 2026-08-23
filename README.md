@@ -1,6 +1,6 @@
 # Abacre Antivirus 1.3 — Ingeniería Inversa Académica
 
-> **Fines exclusivamente académicos.** Análisis de un antivirus de 2006 con **0% de detección** en evaluaciones independientes (113.334 muestras y test de 58 productos).
+> **Fines exclusivamente académicos.** Análisis de un antivirus de 2006 con **0% de detección** en la prueba de [virus.gr](https://web.archive.org/web/20060926145104/http://www.virus.gr/english/fullxml/default.asp?id=82&mnu=82) (147.184 muestras, 58 productos, agosto 2006).
 
 [![Metodología](https://img.shields.io/badge/docs-Metodolog%C3%ADa-blue)](#fase-0-metodolog%C3%ADa) [![VM](https://img.shields.io/badge/VM-XP%20SP3-green)](#fase-3-m%C3%A1quina-virtual) [![Firmas](https://img.shields.io/badge/DB-67%20firmas%202003--2005-orange)](#base-de-firmas-completa-67-virus-2003-2005) [![Blowfish](https://img.shields.io/badge/Cipher-Blowfish-blueviolet)](#fase-6-hallazgo-blowfish--base-de-firmas) [![Dump](https://img.shields.io/badge/Memory-29MB%20dump-red)](#fase-5-dump-de-memoria)
 
@@ -278,15 +278,36 @@ Se extrajeron **67 firmas reales** de malware conocido. La base cubre exclusivam
 
 ### ¿Por qué 0% de detección?
 
-El antivirus fue evaluado en **2006** con muestras de **2006+**. Su base de datos contenía exclusivamente firmas de **2003-2005**. 
+La prueba se realizó del **15 al 25 de agosto de 2006** en [virus.gr](https://web.archive.org/web/20060926145104/http://www.virus.gr/english/fullxml/default.asp?id=82&mnu=82), con **147.184 muestras de malware** verificadas por Kaspersky, F-Prot, NOD32, Dr.Web, BitDefender y McAfee. Se probaron **58 productos** con configuración máxima (heurísticas, escaneo completo).
 
-**Resultado:** El DB estaba completamente obsoleto — no podía detectar ninguna amenaza contemporánea a la prueba. Ningún archivo nuevo (2006+) coincidía con las firmas antiguas.
+**Abacre Antivirus 1.4 quedó en último lugar (puesto 58/58) con 0.00%.**
 
 ```
-Evaluación AV: 2006 (113.334 muestras, 58 productos)
-Base Abacre:   2003-2005 (67 firmas)
-Coincidencia:  0%
+Prueba virus.gr:  147.184 muestras, 58 productos, agosto 2006
+Base Abacre:      67 firmas (2003-2005)
+Detección:        0.00% — último lugar
 ```
+
+**Causa:** La base de datos de Abacre contenía exclusivamente firmas de **2003-2005**. Las 147.184 muestras de la prueba eran amenazas contemporáneas (2006+) que no existían en la DB. Ninguna coincidencia era posible.
+
+**Prueba original:** [virus.gr — 15-25 August 2006](https://web.archive.org/web/20060926145104/http://www.virus.gr/english/fullxml/default.asp?id=82&mnu=82) (Wayback Machine)
+
+#### Ranking de la prueba (top 10 + Abacre)
+
+| # | Producto | Detección |
+|---|----------|-----------|
+| 1 | Kaspersky 6.0.0.303 | 99.62% |
+| 2 | Active Virus Shield (AOL) 6.0.0.299 | 99.62% |
+| 3 | F-Secure 2006 6.12.90 | 96.86% |
+| 4 | BitDefender Professional 9 | 96.63% |
+| 5 | CyberScrub 1.0 | 95.98% |
+| 6 | eScan 8.0.671.1 | 95.82% |
+| 7 | BitDefender freeware 8.0.202 | 95.57% |
+| 8 | BullGuard 6.1 | 95.57% |
+| 9 | AntiVir Premium 7.01.01.02 | 95.45% |
+| 10 | NOD32 2.51.30 | 95.14% |
+| ... | ... | ... |
+| **58** | **Abacre 1.4** | **0.00%** |
 
 ### Scripts de análisis
 ```powershell
