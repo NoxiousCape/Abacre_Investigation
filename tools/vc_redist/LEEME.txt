@@ -1,0 +1,10 @@
+Error: api-ms-win-crt-runtime-l1-1-0.dll falta
+
+Solucion dentro de la VM (Windows 7):
+1. Copia vc_redist.x86.exe a la VM (C:\tools\)
+2. Doble click -> Instalar -> Reiniciar VM
+3. Vuelve a abrir C:\tools\x64dbg\release\x32\x32dbg.exe
+
+Alternativa si no funciona: instalar Windows Update KB2999226 (Universal C Runtime) o usar Windows 10 en vez de 7.
+
+Este error NO es de Abacre, es que x64dbg necesita Visual C++ 2015-2022.

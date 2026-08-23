@@ -1,17 +1,10 @@
-# Guía VM — Desempaquetado aav.exe / aavshield.exe
+# Guía VM — Resumen
 
-**VM:** Windows XP SP3 o 7 x86, sin red, snapshot limpio
+Se requiere una VM Windows XP SP3 x86 sin red, con instantánea `limpio`.
 
-1. Copiar `extracted/app/aav.exe`
-2. x64dbg → File → aav.exe → BP `LoadLibraryA`, `GetProcAddress`
-3. Run → trace hasta `pushad` / `jmp OEP` (típico Delphi packer)
-4. Scylla → Dump + Fix Imports
-5. IDR / DeDe sobre dump → buscar `TfrmMain` / `LoadBases` / `ScanFile`
-6. BP `CreateFileA` con `aavbase.dat` → F7 hasta descifrado → dump memoria
+1. Se instala el toolchain en `C:\tools\`: x64dbg (o OllyDbg 1.10 para XP), PE-bear/DIE, IDR, HxD. `vc_redist.x86.exe` se instala si aparece `api-ms-win-crt-runtime`.
+2. Se verifica el packing: `die.exe aav.exe` debe indicar `Delphi + packed`.
+3. El desempaquetado se realiza mediante `ntsd -pv -p <PID>` → `.dump /f aav_fulldump.dmp` (29 MB), evitando breakpoints que activan `Protection Error 251`.
+4. El dump se copia a `analysis/aavbase/` y se analiza con `scripts/`.
 
-No ejecutar `aavshield.exe` como servicio sin aislar.
-
-## Herramientas
-- DIE / PE-bear / ExeinfoPE
-- x64dbg + Scylla
-- IDR (Interactive Delphi Reconstructor)
+El procedimiento detallado se encuentra en `04_guia_vm_completa.md` y la evidencia en `Screenshots/`.

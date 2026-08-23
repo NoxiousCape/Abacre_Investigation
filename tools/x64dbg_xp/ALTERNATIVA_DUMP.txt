@@ -1,0 +1,10 @@
+OPCION SIN PLUGIN (mas simple):
+1. En Olly attach, menu View -> Memory (ALT+M)
+2. Selecciona la seccion .text de aav.exe (Address 00401000)
+3. Click derecho -> Backup -> Save data to file -> aav_dump.bin
+   O: click derecho en CPU -> Copy to executable -> All modifications -> Copy all -> Right click -> Save file
+
+Si no aparece OllyDump, usa PETools alternativo: LordPE
+Descarga: https://github.com/pandasec/PETools  (o busca LordPE.exe)
+1. Ejecuta LordPE.exe fuera de Olly mientras aav.exe esta corriendo
+2. Select aav.exe -> Dump full

@@ -1,0 +1,13 @@
+# Para Windows XP SP3 - usa OllyDbg 1.10 (100% compatible)
+
+1. Copia tools/x64dbg_xp/olly110/OLLYDBG.EXE a VM C:\tools\olly\
+
+2. En VM: ejecuta OLLYDBG.EXE -> File -> Open -> C:\Abacre\aav.exe
+
+3. En Olly: haz click derecho -> Search for -> All intermodular calls -> busca LoadLibraryA
+   Click derecho en LoadLibraryA -> Set breakpoint on every call
+
+4. F9 para correr, cada F9 es un LoadLibraryA. Tras ~20, busca el salto grande JMP 0x45xxxx (OEP)
+   Plugins -> OllyDump -> Dump debugged process -> Fix
+
+Alternativa x64dbg: version 2026 no funciona en XP. Usa OllyDbg para XP.

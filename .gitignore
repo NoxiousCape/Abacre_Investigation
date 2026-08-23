@@ -2,6 +2,9 @@
 *.dll
 *.chm
 !tools/innoextract.exe
+!tools/x64dbg/**/*
+!tools/vc_redist/**/*.exe
+!tools/x64dbg_xp/olly110/OLLYDBG.EXE
 __pycache__/
 *.pyc
 .venv/
@@ -10,3 +13,7 @@ __pycache__/
 Thumbs.db
 extracted/app/*.exe
 extracted/app/*.chm
+*.dmp
+!analysis/aavbase/*.dmp
+tools/x64dbg/*.zip
+tools/x64dbg_xp/*.zip

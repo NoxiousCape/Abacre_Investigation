@@ -1,0 +1,458 @@
+
+<html>
+<head>
+    <meta name="description" content="OpenRCE: The Open Reverse Code Engineering Community">
+    <meta name="keywords"    content="OpenRCE, Reverse Engineering, Reverse Code Engineering, IDA Pro, IDA Pro Scripts, IDA Pro Plugins, OllyDbg, OllyDbg Plugins, WinDbg, SoftIce">
+
+    <title>OpenRCE</title>
+
+            <script src="https://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            _uacct = "UA-71117-2";
+            urchinTracker();
+        </script>
+    
+            <link rel="stylesheet" href="/styles/stylesheet-blackgreen.css">
+        
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Articles" href="https://www.openrce.org/rss/feeds/articles" />
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Blogs" href="https://www.openrce.org/rss/feeds/blogs" />
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Blog Comments" href="https://www.openrce.org/rss/feeds/blog_comments" />
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Downloads" href="https://www.openrce.org/rss/feeds/downloads" />
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Forum Topics" href="https://www.openrce.org/rss/feeds/forum_topics" />
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Forum Posts" href="https://www.openrce.org/rss/feeds/forum_posts" />
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Repository" href="https://www.openrce.org/rss/feeds/site_updates" />
+    <link rel="alternate" type="application/rss+xml" title="OpenRCE: Site Updates" href="https://www.openrce.org/rss/feeds/site_updates" />
+</head>
+<body marginheight=0 leftmargin=0 topmargin=0 marginwidth=0 text="#000000">
+
+<!-- ARCHIVE BANNER -->
+<div style="background:#2a2a2a;color:#b0b0b0;text-align:center;padding:8px 12px;font-family:arial,helvetica,sans-serif;font-size:12px;border-bottom:1px solid #444;">
+    &#128218; <strong>OpenRCE</strong> is preserved as a read-only archive. Launched at RECon Montreal in 2005. Registration and posting are disabled.
+</div>
+<!-- END ARCHIVE BANNER -->
+
+<!-- BEGIN: initialize overlib -->
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<script type="text/javascript" language="JavaScript" src="/scripts/overlib/overlib.js"></script>
+
+<!-- END: initialize overlib -->
+
+<!-- BEGIN: column separating table -->
+<table border=0 cellpadding=0 cellspacing=0 width="100%" height="100%">
+    <tr>
+        <td class="section_left"   width=180 valign=top><center>
+
+<br><br><a class=img href="/"><img src="/img/logo.png" border=0></a><br><img src="/img/spacer.gif" width=1 height=15><br><br>
+
+<!-- BEGIN: main navigation -->
+<table border=0 cellpadding=0 cellspacing=0 class=navigation_menutable>
+    <tr>
+        <td width=150 valign=top>
+        <div class=navigation_menuitem>
+            <a class=navigation_menuitem href="/about/">About</a>
+            <a class=navigation_menuitem href="/">Articles</a>
+            <a class=navigation_menuitem href="/reference_library/bookstore">Book Store</a>
+            <a class=navigation_menuitem href="/distributed_rce/">Distributed RCE</a>
+            <a class=navigation_menuitem href="/downloads/">Downloads</a>
+            <a class=navigation_menuitem href="/event_calendar/">Event Calendar</a>
+            <a class=navigation_menuitem href="/forums/">Forums</a>
+            <a class=navigation_menuitem href="/irc/">Live Discussion</a>
+            <a class=navigation_menuitem href="/reference_library/">Reference Library</a>
+            <a class=navigation_menuitem href="/rss/">RSS Feeds</a>
+            <a class=navigation_menuitem href="/search/">Search</a>
+            <a class=navigation_menuitem href="/users/">Users</a>
+            <a class=navigation_menuitem href="/whats_new/">What's New</a>
+        </div>
+        </td>
+    </tr>
+</table>
+<!-- END: main navigation -->
+
+<br><br>
+
+<div class=nav_header>Customize Theme</div>
+<table border=0 cellpadding=2 cellspacing=0>
+    <tr>
+        <td>
+            <form method="POST" action="/process/set_stylesheet/">
+                <select class=input name=user_stylesheet>
+                    <option label="bluegrey" value="bluegrey">bluegrey</option>
+<option label="blackgreen" value="blackgreen" selected="selected">blackgreen</option>
+<option label="metal" value="metal">metal</option>
+<option label="simple" value="simple">simple</option>
+
+                </select>
+                <input class=input type=submit value="set">
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br>
+
+
+Flag: <a href="javascript:R=0; x1=.1; y1=.05; x2=.25; y2=.24; x3=1.6; y3=.24; x4=300; y4=200; x5=300; y5=200; 
+DI=document.images;
+DIL=DI.length; function A(){for(i=0; i-DIL; i++){if (DI[i].src.indexOf('/flags/')==-1){continue;}DIS=DI[ i ].style;
+DIS.position='absolute'; DIS.left=Math.sin(R*x1+i*x2+x3)*x4+x5;
+DIS.top=Math.cos(R*y1+i*y2+y3)*y4+y5}R++}setInterval('A()',5); void(0);">Tornado!</a>
+<a href="javascript:R=0; x1=.1; y1=.05; x2=.25; y2=.24; x3=1.6; y3=.24; x4=300; y4=200; x5=300; y5=200; DI=document.images; 
+DIL=DI.length; function A(){for(i=0; i-DIL; i++){if (DI[i].src.indexOf('/flags/')==-1){continue;}DIS=DI[ i ].style; 
+DIS.position='relative'; DIS.left=Math.sin(R*x1+i*x2+x3)*x4+x5; 
+DIS.top=Math.cos(R*y1+i*y2+y3)*y4+y5}R++}setInterval('A()',5); void(0);">Hurricane!</a>
+
+<br><br></td>
+        <td class="section_border" width=1   valign=top><img src="/img/spacer.gif" width=1 height=1 border=0></td>
+        <td class="section_center"           valign=top><table width=100% border=0 cellpadding=10 cellspacing=0><tr><td>
+
+
+
+<table width=100% border=0 cellpadding=0 cellspacing=0>
+<!--BEGIN: login/registration field -->
+<tr>
+    <td align=right>
+        <form name=login method=POST action="https://www.openrce.org/process/login">
+        <table border=0 cellpadding=2 cellspacing=0>
+            <tr>
+                <td class=login align=right>Login:</td>
+                <td class=login align=left> <input class=login_input size=16 type=text name=username></td>
+                <td class=login align=right>Password:</td>
+                <td class=login align=left> <input class=login_input size=16 type=password name=password></td>
+                <td class=login align=right><input class=login_input         type=submit   value="Login"></td>
+            </tr>
+            <tr>
+                <td class=login align=left colspan=4><input class=login_input type=checkbox name=remember_me CHECKED>Remember Me</td>
+                <td class=login align=right><a href="/profile/new">Register</a></td>
+            </tr>
+        </table>
+        </form>
+
+        <script language="JavaScript">
+            document.login.username.focus();
+        </script>
+    </td>
+</tr>
+<!--END: login/registration field -->
+</td></tr></table>
+
+<div class=header><a class=table_header_link href="/downloads/browse/OllyDbg_Plugins">OllyDbg Plugins</a>: OllyDump</div><br>
+
+<!-- file information -->
+<fieldset><legend>File Information</legend>
+<table border=0 cellpadding=2 cellspacing=0 width=100%>
+    <tr>
+        <td class=table_sub_header>Category</td>
+        <td class=table_sub_header>Open Source</td>
+        <td class=table_sub_header># Downloads</td>
+        <td class=table_sub_header>Version</td>
+    </tr>
+    <tr>
+        <td class=table_row1>OllyDbg Plugins</td>
+        <td class=table_row1>Yes</td>
+        <td class=table_row1>120,472</td>
+        <td class=table_row1>2.21</td>
+    </tr>
+</table>
+<br>
+<a href="/downloads/download_file/108"><b>Download from OpenRCE</b></a>
+<br>
+<small><i>MD5 Sum: EB5C3DD7E43F7D412EC3DAE68D00803E</i></small>
+<br><br>
+Last updated on Nov 30, -1.</fieldset>
+
+<br>
+
+<!-- author information -->
+<fieldset><legend>Author Information</legend>
+<table border=0 cellpadding=2 cellspacing=0 width=100%>
+    <tr>
+        <td class=table_sub_header>Username</td>
+        <td class=table_sub_header>Name</td>
+        <td class=table_sub_header>E-Mail</td>
+        <td class=table_sub_header>URL</td>
+    </tr>
+    <tr>
+        <td class=table_row1><a href="/messages/compose/Gigapede"><img src="/img/email_icon.gif" border=0></a>&nbsp;<a href="/profile/view/Gigapede">Gigapede</a></td>
+        <td class=table_row1></td>
+        <td class=table_row1>gigapede<img src="/img/anti_harvest_at.gif">btmo<img src="/img/anti_harvest_dot.gif">cjb<img src="/img/anti_harvest_dot.gif">net</td>
+        <td class=table_row1><a href="http://">http://</a></td>
+    </tr>
+</table>
+</fieldset>
+
+<br>
+
+<!-- download description -->
+<fieldset><legend>Description</legend>
+dump active process to PE file
+</fieldset>
+
+
+<!-- screenshot -->
+
+
+</td></tr></table></td>
+        <td class="section_border" width=1   valign=top><img src="/img/spacer.gif" width=1 height=1 border=0></td>
+        <td class="section_right"  width=200 valign=top><table width=100% border=0 cellpadding=10 cellspacing=0><tr><td>
+
+
+<p align=right>
+There are <b>31,328</b> total registered users.
+</p>
+
+<!--
+<table border=0 cellpadding=2 cellspacing=0 width="100%">
+    <tr>
+        <td colspan=3 class=table_header_right>Advertisement</td>
+    </tr>
+    <tr class=table_row1_right>
+        <td align=left><a 
+href="http://www.infosecinstitute.com/courses/reverse_engineering_training.html">5 Day Hands-On RE 
+Training</a> at <a href="http://www.infosecinstitute.com">InfoSec Institute</a>.<br><br>Learn to 
+reverse Win32 binaries, malware and obfuscated code with IDA Pro, OllyDbg and other RCE 
+tools.<br><br>Taught by experts from the OpenRCE community.</td>
+    </tr>
+</table>
+-->
+
+<br>
+<table border=0 cellpadding=2 cellspacing=0 width="100%">
+    <tr>
+        <td colspan=2 class=table_header_right>Recently Created Topics</td>
+    </tr>
+    
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2460">[help] Unpacking VMP...</a></td>
+            <td><div class=small_right>Mar/12</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2459">Reverse Engineering ...</a></td>
+            <td><div class=small_right>Jul/06</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2444">let 'IDAPython' impo...</a></td>
+            <td><div class=small_right>Sep/24</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2443">set 'IDAPython' as t...</a></td>
+            <td><div class=small_right>Sep/24</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2442">GuessType return une...</a></td>
+            <td><div class=small_right>Sep/20</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2441">About retrieving the...</a></td>
+            <td><div class=small_right>Sep/07</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2440">How to find specific...</a></td>
+            <td><div class=small_right>Aug/15</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2439">How to get data depe...</a></td>
+            <td><div class=small_right>Jul/07</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2438">Identify RVA data in...</a></td>
+            <td><div class=small_right>May/06</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2436">Question about memor...</a></td>
+            <td><div class=small_right>Dec/12</div></td>
+        </tr>
+    </table>
+
+<br><br>
+
+<table border=0 cellpadding=2 cellspacing=0 width="100%">
+    <tr>
+        <td colspan=2 class=table_header_right>Recent Forum Posts</td>
+    </tr>
+    
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2343#4870">Finding the procedur...</a></td>
+            <td align=right><div align=right class=small_right>rolEYder</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2378#4869">Question about debbu...</a></td>
+            <td align=right><div align=right class=small_right>rolEYder</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2438#4865">Identify RVA data in...</a></td>
+            <td align=right><div align=right class=small_right>sohlow</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2444#4864">let 'IDAPython' impo...</a></td>
+            <td align=right><div align=right class=small_right>sohlow</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2440#4863">How to find specific...</a></td>
+            <td align=right><div align=right class=small_right>hackgreti</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/2367#4862">Problem with ollydbg</a></td>
+            <td align=right><div align=right class=small_right>sh3dow</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2434#4861">How can I write olly...</a></td>
+            <td align=right><div align=right class=small_right>sh3dow</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/1914#4860">New LoadMAP plugin v...</a></td>
+            <td align=right><div align=right class=small_right>mefisto...</div></td>
+        </tr>
+            <tr class=table_row1_right>
+            <td><a href="/forums/posts/2424#4859">Intel pin in loaded ...</a></td>
+            <td align=right><div align=right class=small_right>djnemo</div></td>
+        </tr>
+            <tr class=table_row2_right>
+            <td><a href="/forums/posts/866#4858">OOP_RE tool available?</a></td>
+            <td align=right><div align=right class=small_right>Bl4ckm4n</div></td>
+        </tr>
+    </table>
+
+<br><br>
+
+<table border=0 cellpadding=2 cellspacing=0 width="100%">
+    <tr>
+        <td colspan=3 class=table_header_right>Recent Blog Entries</td>
+    </tr>
+    
+            
+        <tr class=table_row1_right>
+            <td><img src="/img/flags/eg.gif"></td>
+            <td width="100%"><a href="/blog/browse/halsten">halsten</a></td>
+            <td><div class=small_right>Mar/14</div></td>
+        </tr>
+        <tr class=table_row1_right>
+            <td colspan=3><a href="/blog/view/5106/Breaking_IonCUBE_VM">Breaking IonCUBE VM</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row2_right>
+            <td><img src="/img/flags/no.gif"></td>
+            <td width="100%"><a href="/blog/browse/oleavr">oleavr</a></td>
+            <td><div class=small_right>Oct/24</div></td>
+        </tr>
+        <tr class=table_row2_right>
+            <td colspan=3><a href="/blog/view/5104/Anatomy_of_a_code_tracer">Anatomy of a code tracer</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row1_right>
+            <td><img src="/img/flags/pl.gif"></td>
+            <td width="100%"><a href="/blog/browse/hasherezade">hasherezade</a></td>
+            <td><div class=small_right>Sep/24</div></td>
+        </tr>
+        <tr class=table_row1_right>
+            <td colspan=3><a href="/blog/view/5103/IAT_Patcher_-_new_tool_for_easy_API_hooking">IAT Patcher - new tool for ...</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row2_right>
+            <td><img src="/img/flags/no.gif"></td>
+            <td width="100%"><a href="/blog/browse/oleavr">oleavr</a></td>
+            <td><div class=small_right>Aug/27</div></td>
+        </tr>
+        <tr class=table_row2_right>
+            <td colspan=3><a href="/blog/view/5102/CryptoShark:_code_tracer_based_on_dynamic_recompilation">CryptoShark: code tracer ba...</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row1_right>
+            <td><img src="/img/flags/no.gif"></td>
+            <td width="100%"><a href="/blog/browse/oleavr">oleavr</a></td>
+            <td><div class=small_right>Jun/25</div></td>
+        </tr>
+        <tr class=table_row1_right>
+            <td colspan=3><a href="/blog/view/5062/Build_a_debugger_in_5_minutes">Build a debugger in 5 minutes</a><br><br></td>
+        </tr>        
+        
+    <tr>
+        <td colspan=3 class=table_row1_right align=right>
+            <a href="/blog/recent_list">More ...</a>
+        </td>
+    </tr>
+</table>
+
+<br><br>
+
+<table border=0 cellpadding=2 cellspacing=0 width="100%">
+    <tr>
+        <td colspan=3 class=table_header_right>Recent Blog Comments</td>
+    </tr>
+    
+            
+        <tr class=table_row2_right>
+            <td><img src="/img/flags/in.gif"></td>
+            <td width="100%"><a href="/profile/view/nieo">nieo</a> on:</td>
+            <td><div class=small_right>Mar/22</div></td>
+        </tr>
+        <tr class=table_row2_right>
+            <td colspan=3><a href="/blog/view/5103/IAT_Patcher_-_new_tool_for_easy_API_hooking">IAT Patcher - new tool for ...</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row1_right>
+            <td><img src="/img/flags/il.gif"></td>
+            <td width="100%"><a href="/profile/view/djnemo">djnemo</a> on:</td>
+            <td><div class=small_right>Nov/17</div></td>
+        </tr>
+        <tr class=table_row1_right>
+            <td colspan=3><a href="/blog/view/1564/Kernel_debugger_vs_user_mode_exceptions">Kernel debugger vs user mod...</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row2_right>
+            <td><img src="/img/flags/cn.gif"></td>
+            <td width="100%"><a href="/profile/view/acel">acel</a> on:</td>
+            <td><div class=small_right>Nov/14</div></td>
+        </tr>
+        <tr class=table_row2_right>
+            <td colspan=3><a href="/blog/view/1564/Kernel_debugger_vs_user_mode_exceptions">Kernel debugger vs user mod...</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row1_right>
+            <td><img src="/img/flags/us.gif"></td>
+            <td width="100%"><a href="/profile/view/pedram">pedram</a> on:</td>
+            <td><div class=small_right>Dec/21</div></td>
+        </tr>
+        <tr class=table_row1_right>
+            <td colspan=3><a href="/blog/view/4784/frida.github.io:_scriptable_reversing_tool_for_Windows,_Mac,_Linux_and_iOS">frida.github.io: scriptable...</a><br><br></td>
+        </tr>        
+            
+        <tr class=table_row2_right>
+            <td></td>
+            <td width="100%"><a href="/profile/view/capadleman">capadleman</a> on:</td>
+            <td><div class=small_right>Jun/19</div></td>
+        </tr>
+        <tr class=table_row2_right>
+            <td colspan=3><a href="/blog/view/1635/Using_NtCreateThreadEx_for_Remote_Thread_Execution_in_System_Process_for_Vista_&amp;_Windows7">Using NtCreateThreadEx for ...</a><br><br></td>
+        </tr>        
+        
+    <tr>
+        <td colspan=3 class=table_row1_right align=right>
+            <a href="/blog/recent_comments">More ...</a>
+        </td>
+    </tr>
+</table>
+
+<br><br>
+
+<table border=0 cellpadding=2 cellspacing=0 width="100%">
+    <tr>
+        <td class=table_header_right>Imagery</td>
+    </tr>
+    <tr>
+        <td align=center>
+            <b>SoySauce Blueprint</b><br><small>Jun  6, 2008</small><br><br>
+            <a class=img href="/imagery/gallery"><img src="/imagery/files/soysauce_blueprint_thumbnail.gif" width=200 border=0></a>
+            <p align=right><a href="/imagery/files/soysauce_blueprint.gif"><small>[+] expand</small></p>
+            <a href="/imagery/gallery">View Gallery</a> (11) / <a href="/messages/compose/pedram">Submit</a>
+        </td>
+    </tr>
+</table>
+
+</td></tr></table></td>
+    </tr>
+</table>
+<!-- END: column separating table -->
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"2cff38cf652c431699014a5149aa472c","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>
