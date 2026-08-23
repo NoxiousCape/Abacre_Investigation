@@ -141,29 +141,27 @@ La carpeta `C:\Abacre` contiene el instalador y los archivos extraídos.
 
 Este es el paso más revelador del proyecto. Cada herramienta tuvo un problema diferente.
 
-### Problema 0: Abacre no corre en Windows 7
+### Descubrimiento: Abacre no corre en Windows 7
 
-Se intentó usar x32dbg en Windows 7. Primero falló por DLL faltante:
-
-> ![Error DLL api-ms-win-crt-runtime en Windows 7](Screenshots/debug/01_error_api_ms_win_crt_runtime_falta_x32dbg.png)
-
-Se instaló **VC++ Redistributable x86** → la DLL se resolvió.
-
-Luego al ejecutar x32dgb con los steps indicados, el **Asistente de compatibilidad de programas** bloqueó la ejecución indicando que el proceso aav.exe no era compatible con el sistema operativo actual (Se estaba ejecutando **Windows 7 de 32 bits**).
+Antes de crear la VM, se intentó ejecutar `aav.exe` directamente en **Windows 7 de 32 bits**. El **Asistente de compatibilidad de programas** bloqueó la ejecución:
 
 > *"Abacre Antivirus no es compatible con esta versión de Windows."*
 
 > ![Abacre bloqueado en Windows 7](Screenshots/debug/03_abacre_no_compatible_con_windows7.png)
 
-**Conclusión:** Abacre solo funciona en **Windows XP** o versiones anteriores. Se creó una VM con XP Professional SP3.
+**Conclusión:** Abacre solo funciona en **Windows XP**. Se creó una VM con XP Professional SP3.
 
 ### Intento 1: x32dbg (x64dbg 2026)
 
-Al intentar ejecutar x32dbg en la VM de XP:
+En Windows 7, x32dbg falló primero por DLL faltante:
+
+> ![Error DLL api-ms-win-crt-runtime en Windows 7](Screenshots/debug/01_error_api_ms_win_crt_runtime_falta_x32dbg.png)
+
+Se instaló **VC++ Redistributable x86** → la DLL se resolvió. Pero al intentarlo en la VM de XP:
 
 > `C:\tools\x64dbg\release\x32\x32dbg.exe no es una aplicación Win32 válida`
 
-> ![x32dbg no compatible con XP](Screenshots/debug/04_bloqueo_compatibilidad_abacre_antivirus.png)
+> ![x32dbg no compatible con XP](Screenshots/debug/04_x32dbg_no_compatible_con_xp.png)
 
 **Conclusión:** x64dbg 2026 no es compatible con Windows XP.
 
@@ -335,7 +333,7 @@ Todas las capturas del proceso de debugging están en `Screenshots/debug/`, nomb
 - `03_abacre_no_compatible_con_windows7.png` — Abacre bloqueado en Windows 7
 
 ### OllyDbg — Detection del packer
-- `04_bloqueo_compatibilidad_abacre_antivirus.png` — Bloqueo por compatibilidad
+- `04_x32dbg_no_compatible_con_xp.png` — x32dbg no compatible con XP
 - `05_ollydbg_modulo_aav_entrypoint_intermodular_calls.png` — Módulo aav, calls
 - `06_ollydbg_breakpoint_kernel32_GetProcAddress_LocalFree.png` — Breakpoint GetProcAddress
 - `07_ollydbg_kernel32_GetProcAddress_detalle.png` — Detalle de registros
