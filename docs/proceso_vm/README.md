@@ -12,7 +12,7 @@ Se crea una máquina virtual con las especificaciones mínimas:
 - **Disco:** 10 GB
 - **Red:** Sin conexión (aislamiento total)
 
-> ![VMWare - Selección de Windows XP](../../../Screenshots/1.png)
+> ![VMWare - Selección de Windows XP](../../Screenshots/1.png)
 
 ---
 
@@ -20,7 +20,7 @@ Se crea una máquina virtual con las especificaciones mínimas:
 
 Se instala el sistema operativo sin patches ni actualizaciones — se mantiene el estado original de 2006 para reproducir el entorno de la época.
 
-> ![XP instalado sin internet](../../../Screenshots/2.png)
+> ![XP instalado sin internet](../../Screenshots/2.png)
 
 ---
 
@@ -33,7 +33,7 @@ Se instalan **VMWare Tools** en la VM para habilitar:
 
 Se configura una carpeta compartida (por ejemplo `C:\Users\Usuario\Documents\Abacre_Inv\`) que la VM accede como red.
 
-> ![Carpeta compartida visible en VMWare](../../../Screenshots/3.png)
+> ![Carpeta compartida visible en VMWare](../../Screenshots/3.png)
 
 ---
 
@@ -54,7 +54,7 @@ scripts/             ← Scripts de análisis
 tools\               ← Herramientas (innoextract, etc.)
 ```
 
-> ![C:\Abacre con archivos](../../../Screenshots/4.png)
+> ![C:\Abacre con archivos](../../Screenshots/4.png)
 
 ---
 
@@ -62,7 +62,7 @@ tools\               ← Herramientas (innoextract, etc.)
 
 Se abre el antivirus. La interfaz principal carga correctamente en XP.
 
-> ![aav.exe ejecutándose](../../../Screenshots/5.png)
+> ![aav.exe ejecutándose](../../Screenshots/5.png)
 
 **Importante:** En Windows 7 el asistente de compatibilidad **bloquea** la ejecución — por eso se requiere XP.
 
@@ -74,7 +74,7 @@ Se abre el **Administrador de tareas** → pestaña **Procesos** → menú Ver �
 
 Se busca `aav.exe` en la lista y se anota su PID.
 
-> ![PID visible en Administrador de tareas](../../../Screenshots/6.png)
+> ![PID visible en Administrador de tareas](../../Screenshots/6.png)
 
 ---
 
@@ -87,7 +87,7 @@ ntsd -pv -p <PID>
 
 El flag `-pv` es crítico — desactiva la validación de DLLs y evita que el packer detecte el debugger (Error 251).
 
-> ![ntsd conectado a aav.exe](../../../Screenshots/7.png)
+> ![ntsd conectado a aav.exe](../../Screenshots/7.png)
 
 ---
 
@@ -107,17 +107,17 @@ Genera un archivo de **11 KB** — no contiene la base de virus.
 ```
 Genera un archivo de **29 MB** — contiene la memoria completa del proceso, incluyendo la base descifrada.
 
-> ![Comando .dump ejecutándose](../../../Screenshots/8.png)
+> ![Comando .dump ejecutándose](../../Screenshots/8.png)
 
 ### ⚠ Error común: Error 123
 
 Si se escribe `.dump /ma a:\ruta\aav.dmp` con una ruta, NTSD interpreta el espacio como separador y falla con **Error 123** (`Win32 error 123` — nombre de archivo no válido).
 
-![Error 123 por ruta con espacio](../../debug/24_ntsd_error_123.png)
+![Error 123 por ruta con espacio](../../Screenshots/debug/24_ntsd_error_123.png)
 
 **Solución:** Escribir **sin ruta** — el dump queda en `C:\Documents and Settings\Usuario\`.
 
-> ![Dump generado correctamente](../../../Screenshots/9.png)
+> ![Dump generado correctamente](../../Screenshots/9.png)
 
 ---
 
@@ -131,7 +131,7 @@ Se escribe `q` y se presiona Enter. El proceso `aav.exe` termina.
 
 Se verifica que el archivo `aav_fulldump.dmp` (29 MB) se generó correctamente.
 
-> ![Dump completado en carpeta](../../../Screenshots/10.png)
+> ![Dump completado en carpeta](../../Screenshots/10.png)
 
 Se copia a la carpeta compartida:
 ```cmd
