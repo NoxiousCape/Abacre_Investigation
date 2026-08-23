@@ -23,7 +23,7 @@ Se recomienda **VMWare Workstation Pro 26H1** (VirtualBox presentó problemas de
 
 | Parámetro | Valor |
 |-----------|-------|
-| SO | Windows XP Professional SP3 (32 bits) |
+| SO | Windows XP Professional SP3 (con drivers, actualizaciones y rediseño por seguridad) |
 | RAM | 2048 MB |
 | Disco | 20 GB |
 | Red | Deshabilitada (aislamiento total) |

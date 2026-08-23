@@ -108,7 +108,7 @@ Se descartaron VirtualBox (inestable) y Hyper-V (inversión de mouse) a favor de
 ### Instalación paso a paso
 
 **Paso 1 — Crear VM en VMWare:**
-- OS: Windows XP Professional SP3
+- OS: Windows XP Professional SP3 (con drivers, actualizaciones y rediseño por seguridad)
 - RAM: 512 MB
 - Disco: 10 GB
 - Red: **Sin conexión** (aislamiento total)

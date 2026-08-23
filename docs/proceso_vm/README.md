@@ -7,7 +7,7 @@
 ## Paso 1 — Crear VM en VMWare
 
 Se crea una máquina virtual con las especificaciones mínimas:
-- **SO:** Windows XP Professional SP3
+- **SO:** Windows XP Professional SP3 (con drivers, actualizaciones y rediseño por seguridad)
 - **RAM:** 512 MB
 - **Disco:** 10 GB
 - **Red:** Sin conexión (aislamiento total)
@@ -18,7 +18,7 @@ Se crea una máquina virtual con las especificaciones mínimas:
 
 ## Paso 2 — Instalar XP Professional SP3
 
-Se instala el sistema operativo sin patches ni actualizaciones — se mantiene el estado original de 2006 para reproducir el entorno de la época.
+Se instala el sistema operativo con drivers, últimas actualizaciones de seguridad y un rediseño de interfaz para mejorar la experiencia de usuario.
 
 > ![XP instalado sin internet](../../Screenshots/2.png)
 
