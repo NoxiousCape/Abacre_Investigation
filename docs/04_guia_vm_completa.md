@@ -1,4 +1,4 @@
-# Guía completa — Procedimiento en VM (3ª persona)
+# Guía completa — Procedimiento en VM 
 
 > **Objetivo:** Obtener la memoria desempaquetada de `aav.exe` y el plaintext de `aavbase.dat` sin exponer el host.
 

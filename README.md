@@ -2,7 +2,7 @@
 
 > **Fines exclusivamente académicos.** Análisis de un antivirus de 2006 con **0% de detección** en evaluaciones independientes (113.334 muestras y test de 58 productos).
 
-[![Metodología](https://img.shields.io/badge/docs-Metodolog%C3%ADa-blue)](#fase-0-metodolog%C3%ADa) [![VM](https://img.shields.io/badge/VM-XP%20SP3-green)](#fase-3-m%C3%A1quina-virtual) [![Blowfish](https://img.shields.io/badge/DB-Blowfish%2070%20firmas-orange)](#fase-6-hallazgo-blowfish--70-firmas) [![Dump](https://img.shields.io/badge/Memory-29MB%20dump-red)](#fase-5-dump-de-memoria)
+[![Metodología](https://img.shields.io/badge/docs-Metodolog%C3%ADa-blue)](#fase-0-metodolog%C3%ADa) [![VM](https://img.shields.io/badge/VM-XP%20SP3-green)](#fase-3-m%C3%A1quina-virtual) [![Firmas](https://img.shields.io/badge/DB-67%20firmas%202003--2005-orange)](#base-de-firmas-completa-67-virus-2003-2005) [![Blowfish](https://img.shields.io/badge/Cipher-Blowfish-blueviolet)](#fase-6-hallazgo-blowfish--base-de-firmas) [![Dump](https://img.shields.io/badge/Memory-29MB%20dump-red)](#fase-5-dump-de-memoria)
 
 ---
 
@@ -14,10 +14,12 @@ setup.exe → innoextract → aav.exe (packer Delphi, 11 secciones vacías)
 
 aav.exe en XP → Error 251 (anti-debug) → ntsd -pv → 29MB dump
                                               ↓
-                              Cipher_Blowfish + key → 70 firmas 2003-2005
+                              Cipher_Blowfish + key → 67 firmas 2003-2005
                                               ↓
-                              DB obsoleta → 0% detección en 2006+
+                         Evaluación 2006 + DB 2003-2005 = 0% detección
 ```
+
+> **Conclusión:** Abacre Antivirus falló porque su base de firmas estaba **2-3 años obsoleta**. Las 67 firmas extraídas cubren exclusivamente malware de 2003-2005, mientras que la prueba de detección se realizó con muestras de 2006+.
 
 ---
 
@@ -241,7 +243,7 @@ El dump se guarda en `analysis/aavbase/aav_fulldump.dmp` (29 MB).
 
 ---
 
-## Fase 6: Hallazgo — Blowfish + 70 firmas
+## Fase 6: Hallazgo — Blowfish + base de firmas
 
 ### Qué se encontró en el dump
 
@@ -254,28 +256,42 @@ Al analizar el `aav_fulldump.dmp` con búsqueda de cadenas y patrones:
 | `LoadVirBase` | `0x2266EA` | Rutina que carga la base de virus |
 | `Blowfish=` config | `0x5290CE` | Configuración del cifrador |
 
-### Las 70 firmas extraídas
+### Base de firmas completa: 67 virus (2003-2005)
 
-Se identificaron **70 firmas reales** de malware conocido, todas de **2003-2005**:
+Se extrajeron **67 firmas reales** de malware conocido. La base cubre exclusivamente amenazas de **2003 a 2005**:
 
-```
-W32.Netsky.Z@mm          W32.Gaobot.YC
-W32.Beagle.W              W32.Sasser.B
-W32.Mydoom.M              W32.Sober.J
-W32.Mytob.BE              W32.Zafi.B
-W32.Mimail.I              Backdoor.Gaobot.YC
-```
+| # | Familia | Firmas | Período |
+|---|---------|--------|---------|
+| 1 | **W32.Netsky** | AA, AB, AC, B, S, T, U, V, W, X, Y, Z (@mm) | 2004 |
+| 2 | **W32.Gaobot** | AAY, ADN, ADV, ADW, ADX, AFC, AFJ, AFW, WO, WX, YC, YN, ZW, ZX | 2004-2005 |
+| 3 | **W32.Sasser** | B, C, D, Worm | 2004 |
+| 4 | **W32.Beagle** | W, X (@mm) | 2004 |
+| 5 | **W32.Bugbear** | C, E (@mm) | 2003 |
+| 6 | **W32.Randex** | AAS, UG, YR | 2004 |
+| 7 | **W32.Sober** | C (@mm) | 2003 |
+| 8 | **W32.Mydoom** | I, J (@mm) | 2004 |
+| 9 | **Trojan.Mitglieder** | F, H, I, J | 2004 |
+| 10 | **W32.HLLW.Donk** | M, O | 2003 |
+| 11 | **Otros** | Arcam, Blaster.T, Bugbros.B, Dumaru.AI, Erkez.A, Gearbug, HLLP.Shodi.B, Kotira, Lovgate.R, Maddis.B, Misodene, Opasa, Shodi.C, Slime, Solame.A, Traxg, Tunk.A, Adwaheck, AphexLace, Mercurycas, Popdis | 2003-2005 |
 
-> Ver lista completa: [`analysis/aavbase/signatures.txt`](analysis/aavbase/signatures.txt)
+**Lista completa:** [`analysis/aavbase/signatures.txt`](analysis/aavbase/signatures.txt)
 
 ### ¿Por qué 0% de detección?
 
-El antivirus fue evaluado en **2006** con muestras de **2006+**. Su base de datos contenía firmas de **2003-2005**. El DB estaba completamente obsoleto — no podía detectar ninguna amenaza contemporánea a la prueba.
+El antivirus fue evaluado en **2006** con muestras de **2006+**. Su base de datos contenía exclusivamente firmas de **2003-2005**. 
+
+**Resultado:** El DB estaba completamente obsoleto — no podía detectar ninguna amenaza contemporánea a la prueba. Ningún archivo nuevo (2006+) coincidía con las firmas antiguas.
+
+```
+Evaluación AV: 2006 (113.334 muestras, 58 productos)
+Base Abacre:   2003-2005 (67 firmas)
+Coincidencia:  0%
+```
 
 ### Scripts de análisis
 ```powershell
-python scripts\04_find_decrypt.py     # Buscar rutina de descifrado
-python scripts\06_extract_signatures.py  # Extraer firmas del dump
+python scripts\04_find_decrypt.py         # Buscar rutina de descifrado
+python scripts\06_extract_signatures.py    # Extraer firmas del dump
 ```
 
 ---
