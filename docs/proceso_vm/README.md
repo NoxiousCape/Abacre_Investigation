@@ -8,8 +8,8 @@
 
 Se crea una máquina virtual con las especificaciones mínimas:
 - **SO:** Windows XP Professional SP3 (con drivers, actualizaciones y rediseño por seguridad)
-- **RAM:** 512 MB
-- **Disco:** 10 GB
+- **RAM:** 2 GB
+- **Disco:** 40 GB (dinámico)
 - **Red:** Sin conexión (aislamiento total)
 
 > ![VMWare - Selección de Windows XP](../../Screenshots/1.png)

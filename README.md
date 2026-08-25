@@ -109,8 +109,8 @@ Se descartaron VirtualBox (inestable) y Hyper-V (inversión de mouse) a favor de
 
 **Paso 1 — Crear VM en VMWare:**
 - OS: Windows XP Professional SP3 (con drivers, actualizaciones y rediseño por seguridad)
-- RAM: 512 MB
-- Disco: 10 GB
+- RAM: 2 GB
+- Disco: 40 GB (dinámico)
 - Red: **Sin conexión** (aislamiento total)
 
 > ![VMWare - Selección de SO](Screenshots/1.png)
