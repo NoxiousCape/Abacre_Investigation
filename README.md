@@ -10,7 +10,7 @@
 
 ```
 setup.exe → innoextract → aav.exe (packer Delphi, 11 secciones vacías)
-                        → aavbase.dat (15 KB, payload cifrado)
+                        → aavbase.dat (15 KB, payload de alta entropía)
 
 aav.exe en XP → Error 251 (anti-debug) → ntsd -pv → 29MB dump
                                               ↓
@@ -101,7 +101,7 @@ python scripts\03_statistical_crypto.py
 ## Fase 3: Máquina virtual
 
 ### Por qué XP y no Windows 7
-**Windows 7 no es compatible** con Abacre Antivirus. La única opción funcional es **Windows XP Professional SP3**.
+**Windows 7 no resultó compatible** con Abacre Antivirus en nuestras pruebas. La ejecución exitosa se logró en **Windows XP Professional SP3**.
 
 Se descartaron VirtualBox (inestable) y Hyper-V (inversión de mouse) a favor de **VMWare Workstation Pro 26H1**.
 
@@ -215,7 +215,7 @@ El packer ejecuta `NtQueryInformationProcess`, detecta el debugger y lanza Error
 
 ### Intento 4: NTSD — ¡el que funcionó!
 
-**Clave:** `ntsd -pv` no activa la detección de debugger del packer. El flag `-pv` desactiva la protección de-validación de DLLs, y al ser un debugger del sistema (no de usuario), pasa desapercibido.
+**Clave:** `ntsd -pv` permitió continuar la ejecución sin activar la detección del debugger. Mientras OllyDbg provocaba el Error 251, NTSD con `-pv` ejecutó `aav.exe` sin interrupciones. El mecanismo exacto por el cual el packer no detecta NTSD no fue analizado en esta investigación.
 
 > Ver: [`docs/proceso_vm/README.md`](docs/proceso_vm/README.md)
 

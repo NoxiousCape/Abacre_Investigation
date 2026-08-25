@@ -85,7 +85,7 @@ Se abre **CMD** y se ejecuta:
 ntsd -pv -p <PID>
 ```
 
-El flag `-pv` es crítico — desactiva la validación de DLLs y evita que el packer detecte el debugger (Error 251).
+El flag `-pv` permitió attach sin activar la detección del packer. Mientras OllyDbg provocaba Error 251, NTSD ejecutó sin problemas. El mecanismo exacto de por qué el packer no detecta NTSD no fue investigado.
 
 > ![ntsd conectado a aav.exe](../../Screenshots/7.png)
 

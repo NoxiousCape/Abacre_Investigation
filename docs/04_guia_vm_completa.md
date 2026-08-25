@@ -146,7 +146,7 @@ python scripts\06_extract_signatures.py        # Extraer firmas del dump
 
 ## Notas
 
-- Windows 7 no resultó compatible con Abacre; se requiere XP SP3.
+- Windows 7 no resultó compatible con Abacre en nuestras pruebas; la ejecución exitosa se logró en XP SP3.
 - VirtualBox e Hyper-V fueron descartados por rendimiento y detección de mouse.
 - El packer detecta breakpoints por software; el método `ntsd -pv` resulta más estable que Olly con breakpoints.
 - La key Blowfish está en `0x2266A2` del dump y la clase `Cipher_Blowfish` en `0x21F3CF`.
