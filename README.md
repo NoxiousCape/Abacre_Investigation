@@ -360,7 +360,7 @@ Abacre_Inv/
 | [`docs/02_aavbase_analisis.md`](docs/02_aavbase_analisis.md) | Análisis de aavbase.dat |
 | [`docs/04_guia_vm_completa.md`](docs/04_guia_vm_completa.md) | Guía VM paso a paso |
 | [`docs/proceso_vm/README.md`](docs/proceso_vm/README.md) | Proceso fotográfico VM |
-| [`analysis/aavbase/signatures.txt`](analysis/aavbase/signatures.txt) | 70 firmas extraídas |
+| [`analysis/aavbase/signatures.txt`](analysis/aavbase/signatures.txt) | 67 firmas extraídas |
 | [`analysis/hashes.sha256`](analysis/hashes.sha256) | SHA256 de todos los archivos |
 | [`analysis/aavbase/statistical.txt`](analysis/aavbase/statistical.txt) | Estadísticas de cifrado |
 

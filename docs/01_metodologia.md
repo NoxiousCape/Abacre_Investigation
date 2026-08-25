@@ -13,4 +13,4 @@ El archivo presenta 15 KB con entropía 7.9876, sin strings Unicode ni compresi�
 El binario empaquetado reconstruye imports mediante `LoadLibraryA/GetProcAddress` hasta alcanzar el OEP. El procedimiento se ejecuta en VM aislada con `ntsd -pv` y `OllyDbg`, generando `aav_fulldump.dmp` (29 MB). El detalle se encuentra en `docs/04_guia_vm_completa.md`.
 
 ## Fase 5 — Reconstrucción
-A partir del dump se extraen `LoadVirBase` @0x2266EA y 70 firmas (W32.Netsky, Gaobot, etc.), lo que permite inferir el formato `[Header][Blowfish-CBC payload]` → `[NumFirmas][Registros]`.
+A partir del dump se extraen `LoadVirBase` @0x2266EA y 67 firmas (W32.Netsky, Gaobot, etc.), lo que permite inferir el formato `[Header][Blowfish-CBC payload]` → `[NumFirmas][Registros]`.
