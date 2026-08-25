@@ -2,13 +2,13 @@
 
 ## Resumen ejecutivo
 
-**Es una base de datos cifrada, no falsa.** Contiene **67 firmas reales** de malware (2003-2005), insuficiente para tests de 2006 con 147k+ muestras nuevas. Eso explica el 0%.
+**Es una base de datos cifrada, no falsa.** Contiene **67 firmas reales** de malware (2003-2005). La evidencia disponible sugiere que esta cobertura extremadamente limitada constituye una explicación plausible para su 0,00% de detección en las pruebas de Virus.gr, aunque no se puede demostrar causalidad sin el conjunto completo de muestras.
 
 ## Datos duros
 
 - **Tamaño:** 15141 B (header 22 B `Abacre Antivirus Bases` + payload 15119 B)
 - **SHA256:** `21384F028AC1CC7330361FFD084E7A1EA2FFB8B215ECB48BE629E7E5D0980F33`
-- **Entropía payload:** 7.9876 bits/byte → cifrado de flujo confirmado
+- **Entropía payload:** 7.9876 bits/byte → distribución compatible con datos cifrados o fuertemente ofuscados
 - **Funciones:** `LoadVirBase:` @0x2266EA, `UnLoadVirBase:` @0x2267B4 (Delphi)
 
 ## Hipótesis Blowfish (no verificada al100%)
@@ -45,7 +45,7 @@ W32.Sasser.B/C/D, W32.Lovgate.R, W32.Mydoom.I/J, Trojan.Mitglieder.F/H/I/J, Troj
 
 Lista completa en `analysis/aavbase/signatures.txt`
 
-Todas son gusanos/trojans de 2003-2005. Ningún malware post-2005 → 0% en tests con 147k muestras modernas.
+Todas son gusanos/trojans identificables de 2003-2005. No se encontró malware post-2005 en la base.
 
 ## Formato reconstruido (parcial)
 
@@ -70,7 +70,7 @@ No se analizó cómo Abacre compara firmas contra archivos. Posibilidades:
 Sin el descifrado del payload, no se puede determinar qué tipo de patrón almacena cada firma.
 
 ### Motor heurístico
-No se encontró evidencia de heurísticas funcionales. Las pruebas de virus.gr incluían sección de heurísticas y Abacre no aparecía — lo que sugiere que **nunca tuvo motor heurístico funcional**, solo matching de firmas contra `aavbase.dat`.
+No se encontró evidencia suficiente de un motor heurístico funcional. La ausencia de Abacre en la tabla de detección exclusivamente heurística de Virus.gr es un indicio adicional, pero no constituye prueba de inexistencia.
 
 ### aavshield.exe (resident shield)
 No se analizó en profundidad. Se desconoce:
@@ -84,12 +84,50 @@ No se analizó si Abacre intentaba conexiones de red (telemetría, actualizacion
 ### Packer
 No se identificó el packer específico (no es UPX, ASPack ni PECompact conocido). El análisis se limitó a detectar packing por entropía y secciones vacías, sin unpack manual.
 
-## Contexto: producto abandonado, no engaño
+## Contexto
 
-Es importante matizar: Abacre no era un "antivirus falso" — era un producto **abandonado por su vendor**. La empresa Abacre se dedica a software POS (punto de venta) y el antivirus parece haber sido un experimento de diversificación que nunca recibió actualizaciones. El 0% es resultado de negligencia comercial, no de intención fraudulenta.
+La evidencia analizada no permite determinar las razones comerciales o técnicas por las que la base dejó de actualizarse. No se ha encontrado evidencia en esta investigación que permita afirmar que Abacre fuera deliberadamente fraudulento.
+
+## Arquitectura reconstruida
+
+```
+                    ┌────────────────────┐
+                    │     aav.exe        │
+                    │  Motor principal   │
+                    │  (Delphi, packed)  │
+                    └─────────┬──────────┘
+                              │
+                 ┌────────────┴─────────────┐
+                 │                          │
+          LoadVirBase()               Scanner
+          [confirmado]              [desconocido]
+                 │                          │
+                 ▼                          │
+          aavbase.dat                       │
+          [15 KB, cifrado]                  │
+                 │                          │
+          Blowfish [?]                      │
+          [hipótesis]                       │
+                 │                          │
+                 ▼                          ▼
+          Signature DB ───────────────> Detección
+          [67 firmas]                [sin heurísticas
+          [2003-2005]                 evidenciadas]
+
+                    ┌────────────────────┐
+                    │  aavshield.exe     │
+                    │ Protección residente│
+                    │ [no analizado]     │
+                    └────────────────────┘
+```
+
+**Leyenda:**
+- 🟢 **Confirmado:** LoadVirBase, 67 firmas, estructura PE, packing
+- 🟡 **Inferido:** Blowfish (strings encontrados, sin descifrado), formato de registros
+- 🔴 **Desconocido:** Motor de escaneo, heurísticas, aavshield.exe, packer específico
 
 ## Conclusión
 
-> *Tener 67 firmas cifradas no es "fake", es "obsoleto". En 2006 competidores tenían 100k+ firmas + heurísticas. Abacre solo tenía patterns de 2003-2005 sin motor heurístico.*
+> *La evidencia sugiere que 67 firmas de 2003-2005 era una cobertura extremadamente limitada para una prueba de 2006 con 147k muestras. Sin embargo, no se puede establecer causalidad directa sin el conjunto completo de muestras de Virus.gr.*
 
 Ver `analysis/aavbase/aav_fulldump.dmp` (29 MB) para reproducir.

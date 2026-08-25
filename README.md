@@ -10,16 +10,16 @@
 
 ```
 setup.exe → innoextract → aav.exe (packer Delphi, 11 secciones vacías)
-                        → aavbase.dat (15 KB, cifrado Blowfish)
+                        → aavbase.dat (15 KB, payload cifrado)
 
 aav.exe en XP → Error 251 (anti-debug) → ntsd -pv → 29MB dump
                                               ↓
-                              Cipher_Blowfish + key → 67 firmas 2003-2005
+                          Cipher_Blowfish [hipótesis] + 67 firmas 2003-2005
                                               ↓
-                         Evaluación 2006 + DB 2003-2005 = 0% detección
+                          Evidencia sugiere: DB obsoleta → 0% detección
 ```
 
-> **Conclusión:** Abacre Antivirus falló porque su base de firmas estaba **2-3 años obsoleta**. Las 67 firmas extraídas cubren exclusivamente malware de 2003-2005, mientras que la prueba de detección se realizó con muestras de 2006+.
+> **Conclusión (hipótesis):** La evidencia disponible sugiere que la cobertura de firmas de Abacre era extremadamente limitada y estaba concentrada en amenazas de 2003-2005, lo que constituye una explicación plausible para su 0,00% de detección en las pruebas de Virus.gr. Sin embargo, no se dispone del conjunto completo de muestras de Virus.gr ni de una correspondencia muestra-firma que permita demostrar causalidad.
 
 ---
 
@@ -92,7 +92,7 @@ python scripts\01_analyze_aavbase.py
 python scripts\03_statistical_crypto.py
 ```
 
-`aavbase.dat` tiene entropía **7.9876** — confirma cifrado stream. No es un PE, es una base de datos cifrada.
+`aavbase.dat` tiene entropía **7.9876** — distribución estadística compatible con datos cifrados o fuertemente ofuscados. No es un PE, es una base de datos.
 
 > Ver: [`docs/02_aavbase_analisis.md`](docs/02_aavbase_analisis.md) · [`analysis/aavbase/statistical.txt`](analysis/aavbase/statistical.txt)
 
@@ -143,6 +143,28 @@ La carpeta `C:\Abacre` contiene el instalador y los archivos extraídos.
 
 Este es el paso más revelador del proyecto. Cada herramienta tuvo un problema diferente.
 
+```
+Windows 7 (host)
+   ↓
+x32dbg → falta DLL api-ms-win-crt-runtime → se instala vcredist → OK
+   ↓
+aav.exe en Win7 → Asistente compatibilidad bloquea → "no es compatible"
+   ↓
+Conclusión: crear VM con Windows XP SP3
+   ↓
+Windows XP (VM)
+   ↓
+x32dbg → "no es una aplicación Win32 válida" → incompatible con XP
+   ↓
+OllyDbg 1.10 → Error251 "Debugger detected!" → packer detecta debugger
+   ↓
+procdump → "Acceso denegado" + "no es Win32 válida"
+   ↓
+NTSD (ntsd -pv -p <PID>) → attach no invasivo → packer NO detecta
+   ↓
+.dump /f → full dump 29MB → ÉXITO
+```
+
 ### Descubrimiento: Abacre no corre en Windows 7
 
 Antes de crear la VM, se intentó ejecutar `aav.exe` directamente en **Windows 7 de 32 bits**. El **Asistente de compatibilidad de programas** bloqueó la ejecución:
@@ -151,7 +173,7 @@ Antes de crear la VM, se intentó ejecutar `aav.exe` directamente en **Windows 7
 
 > ![Abacre bloqueado en Windows 7](Screenshots/debug/03_abacre_no_compatible_con_windows7.png)
 
-**Conclusión:** Abacre solo funciona en **Windows XP**. Se creó una VM con XP Professional SP3.
+**Conclusión:** La versión analizada fue ejecutada con éxito en Windows XP SP3, mientras que los intentos realizados en Windows 7 fallaron.
 
 ### Intento 1: x32dbg (x64dbg 2026)
 
@@ -276,7 +298,7 @@ Se extrajeron **67 firmas reales** de malware conocido. La base cubre exclusivam
 
 **Lista completa:** [`analysis/aavbase/signatures.txt`](analysis/aavbase/signatures.txt)
 
-### ¿Por qué 0% de detección?
+### ¿Por qué 0% de detección? (hipótesis)
 
 Abacre fue probado **dos veces** en [virus.gr](https://web.archive.org/web/20060926145104/http://www.virus.gr/english/fullxml/default.asp?id=82&mnu=82) — y obtuvo **0% en ambas**:
 
@@ -293,10 +315,10 @@ La prueba de agosto 2006 utilizó **147.184 muestras de malware** verificadas po
 Prueba dic 2005:  113.334 muestras, v1.3 → 0.00%
 Prueba ago 2006:  147.184 muestras, v1.4 → 0.00%
 Base Abacre:      67 firmas (2003-2005)
-Resultado:        0% en ambas — la actualización v1.3→v1.4 no mejoró nada
+Resultado:        0% en ambas — la actualización v1.3→v1.4 no mejoró la detección
 ```
 
-**Causa:** La base de datos de Abacre contenía exclusivamente firmas de **2003-2005**. Las muestras de ambas pruebas eran amenazas contemporáneas que no existían en la DB. La actualización de versión (1.3 → 1.4) **no incluyó firmas nuevas**.
+**Hipótesis:** La base de datos de Abacre contenía firmas de **2003-2005**. La evidencia disponible sugiere que la cobertura era extremadamente limitada y no incluía amenazas contemporáneas a las pruebas. Sin embargo, no se dispone del conjunto completo de muestras de Virus.gr ni de una correspondencia muestra-firma que permita demostrar causalidad.
 
 #### Ranking de la prueba de agosto 2006 (top 10 + Abacre)
 
@@ -332,14 +354,14 @@ python scripts\06_extract_signatures.py    # Extraer firmas del dump
 | **Descifrado real de aavbase.dat** | Pendiente | Blowfish es hipótesis (strings encontrados pero sin plaintext) |
 | **Payload no-múltiplo-de-8** | Sin resolver | 15119 B con resto 7 — incompatible con Blowfish CBC puro |
 | **Motor de escaneo** | No analizado | Se desconoce si usa hash, patrón de bytes o CRC32 |
-| **Motor heurístico** | Probablemente inexistente | No aparece en sección de heurísticas de virus.gr |
+| **Motor heurístico** | Sin evidencia suficiente | No aparece en tabla de heurísticas de virus.gr (indicio, no prueba) |
 | **aavshield.exe** | No analizado | Mecanismo de hooking desconocido |
 | **Conexiones de red** | No analizado | Posible telemetría o actualizaciones fallidas |
 | **Packer específico** | No identificado | No es UPX, ASPack ni PECompact conocido |
 
 ### Contexto importante
 
-Abacre no era un "antivirus falso" — era un producto **abandonado por su vendor**. La empresa Abacre se dedica a software POS (punto de venta) y el antivirus parece haber sido un experimento de diversificación que nunca recibió actualizaciones. El 0% es resultado de **negligencia comercial**, no de intención fraudulenta.
+La evidencia analizada no permite determinar las razones comerciales o técnicas por las que la base dejó de actualizarse. No se ha encontrado evidencia en esta investigación que permita afirmar que Abacre fuera deliberadamente fraudulento.
 
 ### Próximos pasos
 
