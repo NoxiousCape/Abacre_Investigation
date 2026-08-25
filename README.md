@@ -323,6 +323,33 @@ python scripts\06_extract_signatures.py    # Extraer firmas del dump
 
 ---
 
+## Limitaciones de la investigación
+
+### Lo que NO se verificó
+
+| Aspecto | Estado | Notas |
+|---------|--------|-------|
+| **Descifrado real de aavbase.dat** | Pendiente | Blowfish es hipótesis (strings encontrados pero sin plaintext) |
+| **Payload no-múltiplo-de-8** | Sin resolver | 15119 B con resto 7 — incompatible con Blowfish CBC puro |
+| **Motor de escaneo** | No analizado | Se desconoce si usa hash, patrón de bytes o CRC32 |
+| **Motor heurístico** | Probablemente inexistente | No aparece en sección de heurísticas de virus.gr |
+| **aavshield.exe** | No analizado | Mecanismo de hooking desconocido |
+| **Conexiones de red** | No analizado | Posible telemetría o actualizaciones fallidas |
+| **Packer específico** | No identificado | No es UPX, ASPack ni PECompact conocido |
+
+### Contexto importante
+
+Abacre no era un "antivirus falso" — era un producto **abandonado por su vendor**. La empresa Abacre se dedica a software POS (punto de venta) y el antivirus parece haber sido un experimento de diversificación que nunca recibió actualizaciones. El 0% es resultado de **negligencia comercial**, no de intención fraudulenta.
+
+### Próximos pasos
+
+- Descifrado offline de `aavbase.dat` para confirmar Blowfish y obtener plaintext
+- Análisis de `aavshield.exe` (hooking, motor de escaneo)
+- Identificación del packer específico
+- Análisis de conexiones de red (Wireshark en VM)
+
+---
+
 ## Estructura del repositorio
 
 ```
