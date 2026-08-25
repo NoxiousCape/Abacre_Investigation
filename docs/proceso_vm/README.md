@@ -48,7 +48,7 @@ La carpeta `C:\Abacre` contiene:
 ```
 aav.exe              ← Antivirus principal
 aavshield.exe        ← Resident shield
-aavbase.dat          ← Base cifrada Blowfish
+aavbase.dat          ← Base de datos cifrada (hipótesis: Blowfish)
 setup.exe            ← Instalador original
 scripts/             ← Scripts de análisis
 tools\               ← Herramientas (innoextract, etc.)
@@ -146,7 +146,8 @@ El dump queda finalmente en `analysis/aavbase/aav_fulldump.dmp`.
 
 | Problema | Causa | Solución |
 |----------|-------|----------|
-| x32dbg no inicia en XP | Falta `api-ms-win-crt-runtime-l1-1-0.dll` | Usar OllyDbg 1.10 o ntsd |
+| x32dbg no inicia en Win7 | Falta `api-ms-win-crt-runtime-l1-1-0.dll` | Instalar `vc_redist.x86.exe` |
+| x32dbg no compatible con XP | No es una aplicación Win32 válida | Usar OllyDbg 1.10 o ntsd |
 | OllyDbg → Error 251 | Packer detecta debugger | Usar `ntsd -pv` (no lo detecta) |
 | procdump → Acceso denegado | No es Win32 válido en XP | Usar `ntsd -pv` |
 | Error 123 al hacer dump | Ruta con espacios interpretada como argumento | Escribir sin ruta |

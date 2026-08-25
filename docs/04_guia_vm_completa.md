@@ -45,7 +45,7 @@ Contenido de `C:\Abacre\`:
 ```
 aav.exe              ← Antivirus principal
 aavshield.exe        ← Resident shield
-aavbase.dat          ← Base cifrada Blowfish
+aavbase.dat          ← Base de datos cifrada (hipótesis: Blowfish)
 setup.exe            ← Instalador original
 tools\               ← Herramientas de análisis
 scripts\             ← Scripts reproducibles

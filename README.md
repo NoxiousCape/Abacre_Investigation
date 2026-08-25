@@ -421,7 +421,7 @@ Todas las capturas del proceso de debugging están en `Screenshots/debug/`, nomb
 
 ### x32dbg — No compatible con XP
 - `01_error_api_ms_win_crt_runtime_falta_x32dbg.png` — Falta DLL runtime
-- `02_x32dbg_breakpoint_ntdll_NtQueryVirtualMemory.png` — Breakpoint sistema ( Win10)
+- `02_x32dbg_breakpoint_ntdll_NtQueryVirtualMemory.png` — Breakpoint en ntdll (host Win7)
 - `03_abacre_no_compatible_con_windows7.png` — Abacre bloqueado en Windows 7
 
 ### OllyDbg — Detection del packer
